@@ -1,0 +1,3 @@
+get networking functional between 2 containers
+- backend (flask server route that returns hello world string)
+- frontend (python that queries the backend route)

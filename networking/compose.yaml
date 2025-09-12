@@ -1,0 +1,15 @@
+services:
+  backend:
+    build: backend
+    networks:
+      - shared
+  frontend:
+    build: frontend
+    depends_on:
+      - backend
+    networks:
+      - shared
+
+networks:
+  shared:
+    driver: bridge
