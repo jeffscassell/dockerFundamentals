@@ -1,0 +1,16 @@
+create a container that has access to a directory on the local file system
+(bind mount)
+
+the `volumes` service element is used for both bind mounts and
+volumes (and tmpfs and npipes).
+
+bind mount:
+used when the user needs to interact with the files within the volume,
+such as configuration files so they can be manually edited, source code
+that needs to be edited on the fly, etc.
+
+volume:
+managed by docker so it's difficult for the user to interact with the files
+within directly, but easy to use. if multiple containers want to share a
+volume, the volume must be declared in the volumes top-level element (not
+under the services element).

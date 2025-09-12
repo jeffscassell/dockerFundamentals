@@ -1,0 +1,13 @@
+services:
+  app:
+    image: ubuntu
+    command: bash
+    volumes:
+      - ./config:/app/config  # host_path:container_path:<read-write is default>
+      - ./read_only:/app/ready_only:ro  # read only
+    stdin_open: true
+    tty: true
+
+# must be run with `docker compose up -d` (detached) and then attached to with
+# `docker compose attach app` or it hangs. no idea why and i'm too tired to
+# figure it out.
