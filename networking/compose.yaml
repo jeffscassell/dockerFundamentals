@@ -3,6 +3,7 @@ services:
     build: backend
     networks:
       - shared
+
   frontend:
     build: frontend
     depends_on:
@@ -10,6 +11,7 @@ services:
     networks:
       - shared
 
+
 networks:
   shared:
-    driver: bridge
+    driver: bridge  # Default (i.e., this line can be omitted without error).
