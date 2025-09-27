@@ -8,6 +8,6 @@ services:
     stdin_open: true
     tty: true
 
-# must be run with `docker compose up -d` (detached) and then attached to with
-# `docker compose attach app` or it hangs. no idea why and i'm too tired to
+# Must be run with `docker compose up -d` (detached) and then attached to with
+# `docker compose attach app` or it hangs. No idea why and I'm too tired to
 # figure it out.
