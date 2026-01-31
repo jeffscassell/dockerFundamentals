@@ -1,0 +1,53 @@
+services:
+  nginx:
+    image: nginx:latest
+    pull_policy: every_14d
+    container_name: nginx
+    user: 124:126
+    networks: 
+      - shared
+    ports:
+      - "8096:8096"
+      - "80:80"
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+      - ./nginx/good.txt:/healthcheck/good.txt
+      - ./nginx/logs:/logs
+    restart: "unless-stopped"
+
+
+  jellyfin:
+    image: jellyfin/jellyfin:latest
+    depends_on:
+      - nginx
+    pull_policy: every_14d
+    container_name: jellyfin
+    user: 1001:1001
+
+    # Necessary for hardware acceleration
+    runtime: nvidia
+    environment:
+      NVIDIA_VISIBLE_DEVICES: all
+
+    networks: 
+      - shared
+    volumes:
+      - ./jellyfin/config:/config
+      - ./jellyfin/cache:/cache
+      - /rpool/movies:/movies
+      - /rpool/shows:/shows
+      - /rpool/.backup/books:/books
+      - /rpool/.backup/.torrents:/torrents
+    restart: 'unless-stopped'
+    # Optional - alternative address used for autodiscovery
+    # environment:
+    # - JELLYFIN_PublishedServerUrl=http://example.com
+    # Optional - may be necessary for docker healthcheck to pass if running in host network mode
+    # extra_hosts:
+    #   - 'host.docker.internal:host-gateway'
+
+
+
+networks:
+  shared:
+    driver: bridge
